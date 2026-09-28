@@ -81,7 +81,6 @@
         tr:nth-child(even) { background-color: #1a2332; }
         tr:hover { background-color: #334155; cursor: pointer; }
 
-        /* Style label CRM atas peta */
         .crm-label {
             background: rgba(15, 23, 42, 0.9);
             border: 1px solid #38bdf8;
@@ -134,44 +133,42 @@
     <script src="https://unpkg.com/leaflet-kml/L.KML.js"></script>
 
     <script>
-        // Penukaran DMS ke Decimal Degree
         function dmsToDecimal(deg, min, sec) {
             return deg + (min / 60) + (sec / 3600);
         }
 
-        // SENARAI DATA CRM DARI KOORDINAT TRAVERSE 1, 2, 3 & 4
+        // Senarai data CRM dengan fail gambar yang sebaris di GitHub
         const dataCRM = [
             // --- TRAVERSE 1 ---
-            { crm: "CRM 15", n: 103529.235, e: 34513.156, lat: dmsToDecimal(4, 35, 18.20), lng: dmsToDecimal(101, 7, 35.17) },
-            { crm: "CRM 14", n: 103510.145, e: 34490.480, lat: dmsToDecimal(4, 35, 17.58), lng: dmsToDecimal(101, 7, 34.43) },
-            { crm: "CRM 12", n: 103531.455, e: 34469.148, lat: dmsToDecimal(4, 35, 18.28), lng: dmsToDecimal(101, 7, 33.74) },
-            { crm: "CRM 20", n: 103524.778, e: 34447.191, lat: dmsToDecimal(4, 35, 18.06), lng: dmsToDecimal(101, 7, 33.03) },
-            { crm: "CRM 19", n: 103524.789, e: 34412.198, lat: dmsToDecimal(4, 35, 18.06), lng: dmsToDecimal(101, 7, 31.89) },
-            { crm: "CRM 13", n: 103575.433, e: 34462.167, lat: dmsToDecimal(4, 35, 19.71), lng: dmsToDecimal(101, 7, 33.51) },
-            { crm: "CRM 23", n: 103549.992, e: 34492.777, lat: dmsToDecimal(4, 35, 18.88), lng: dmsToDecimal(101, 7, 34.51) },
-            { crm: "CRM 22", n: 103531.904, e: 34533.001, lat: dmsToDecimal(4, 35, 18.29), lng: dmsToDecimal(101, 7, 35.81) },
+            { crm: "CRM 15", n: 103529.235, e: 34513.156, lat: dmsToDecimal(4, 35, 18.20), lng: dmsToDecimal(101, 7, 35.17), img: null },
+            { crm: "CRM 14", n: 103510.145, e: 34490.480, lat: dmsToDecimal(4, 35, 17.58), lng: dmsToDecimal(101, 7, 34.43), img: "CRM 14.jpeg" },
+            { crm: "CRM 12", n: 103531.455, e: 34469.148, lat: dmsToDecimal(4, 35, 18.28), lng: dmsToDecimal(101, 7, 33.74), img: "CRM 12.jpeg" },
+            { crm: "CRM 20", n: 103524.778, e: 34447.191, lat: dmsToDecimal(4, 35, 18.06), lng: dmsToDecimal(101, 7, 33.03), img: "CRM 20.jpeg" },
+            { crm: "CRM 19", n: 103524.789, e: 34412.198, lat: dmsToDecimal(4, 35, 18.06), lng: dmsToDecimal(101, 7, 31.89), img: "CRM 19.jpeg" },
+            { crm: "CRM 13", n: 103575.433, e: 34462.167, lat: dmsToDecimal(4, 35, 19.71), lng: dmsToDecimal(101, 7, 33.51), img: "CRM 13.jpeg" },
+            { crm: "CRM 23", n: 103549.992, e: 34492.777, lat: dmsToDecimal(4, 35, 18.88), lng: dmsToDecimal(101, 7, 34.51), img: "CRM 23.jpeg" },
+            { crm: "CRM 22", n: 103531.904, e: 34533.001, lat: dmsToDecimal(4, 35, 18.29), lng: dmsToDecimal(101, 7, 35.81), img: "CRM 22.jpeg" },
 
             // --- TRAVERSE 2 ---
-            { crm: "CRM 11", n: 103442.648, e: 34186.777, lat: dmsToDecimal(4, 35, 15.39), lng: dmsToDecimal(101, 7, 24.58) },
-            { crm: "CRM 1",  n: 103491.952, e: 34288.913, lat: dmsToDecimal(4, 35, 16.99), lng: dmsToDecimal(101, 7, 27.89) },
-            { crm: "CRM 2",  n: 103409.660, e: 34321.018, lat: dmsToDecimal(4, 35, 14.31), lng: dmsToDecimal(101, 7, 28.93) },
+            { crm: "CRM 11", n: 103442.648, e: 34186.777, lat: dmsToDecimal(4, 35, 15.39), lng: dmsToDecimal(101, 7, 24.58), img: null },
+            { crm: "CRM 1",  n: 103491.952, e: 34288.913, lat: dmsToDecimal(4, 35, 16.99), lng: dmsToDecimal(101, 7, 27.89), img: null },
+            { crm: "CRM 2",  n: 103409.660, e: 34321.018, lat: dmsToDecimal(4, 35, 14.31), lng: dmsToDecimal(101, 7, 28.93), img: null },
 
             // --- TRAVERSE 3 ---
-            { crm: "CRM 5",  n: 103408.610, e: 34098.040, lat: dmsToDecimal(4, 35, 14.28), lng: dmsToDecimal(101, 7, 21.70) },
-            { crm: "CRM 4",  n: 103354.392, e: 34129.577, lat: dmsToDecimal(4, 35, 12.52), lng: dmsToDecimal(101, 7, 22.72) },
-            { crm: "CRM 18", n: 103277.792, e: 34014.615, lat: dmsToDecimal(4, 35, 10.03), lng: dmsToDecimal(101, 7, 18.99) },
-            { crm: "CRM 10", n: 103350.886, e: 33928.055, lat: dmsToDecimal(4, 35, 12.41), lng: dmsToDecimal(101, 7, 16.18) },
+            { crm: "CRM 5",  n: 103408.610, e: 34098.040, lat: dmsToDecimal(4, 35, 14.28), lng: dmsToDecimal(101, 7, 21.70), img: "CRM 5.jpeg" },
+            { crm: "CRM 4",  n: 103354.392, e: 34129.577, lat: dmsToDecimal(4, 35, 12.52), lng: dmsToDecimal(101, 7, 22.72), img: null },
+            { crm: "CRM 18", n: 103277.792, e: 34014.615, lat: dmsToDecimal(4, 35, 10.03), lng: dmsToDecimal(101, 7, 18.99), img: null },
+            { crm: "CRM 10", n: 103350.886, e: 33928.055, lat: dmsToDecimal(4, 35, 12.41), lng: dmsToDecimal(101, 7, 16.18), img: null },
 
             // --- TRAVERSE 4 ---
-            { crm: "CRM 6",  n: 103570.830, e: 34012.176, lat: dmsToDecimal(4, 35, 19.57), lng: dmsToDecimal(101, 7, 18.92) },
-            { crm: "CRM 7",  n: 103705.081, e: 34026.147, lat: dmsToDecimal(4, 35, 23.94), lng: dmsToDecimal(101, 7, 19.37) },
-            { crm: "CRM 17", n: 103838.092, e: 34211.963, lat: dmsToDecimal(4, 35, 28.26), lng: dmsToDecimal(101, 7, 25.40) },
-            { crm: "CRM 16", n: 103760.137, e: 34181.568, lat: dmsToDecimal(4, 35, 25.73), lng: dmsToDecimal(101, 7, 24.41) },
-            { crm: "CRM 8",  n: 103606.849, e: 34252.845, lat: dmsToDecimal(4, 35, 20.73), lng: dmsToDecimal(101, 7, 26.72) },
-            { crm: "CRM 9",  n: 103580.254, e: 34291.529, lat: dmsToDecimal(4, 35, 19.87), lng: dmsToDecimal(101, 7, 27.98) }
+            { crm: "CRM 6",  n: 103570.830, e: 34012.176, lat: dmsToDecimal(4, 35, 19.57), lng: dmsToDecimal(101, 7, 18.92), img: "CRM 6.jpeg" },
+            { crm: "CRM 7",  n: 103705.081, e: 34026.147, lat: dmsToDecimal(4, 35, 23.94), lng: dmsToDecimal(101, 7, 19.37), img: "CRM 7.jpeg" },
+            { crm: "CRM 17", n: 103838.092, e: 34211.963, lat: dmsToDecimal(4, 35, 28.26), lng: dmsToDecimal(101, 7, 25.40), img: "CRM 17.jpeg" },
+            { crm: "CRM 16", n: 103760.137, e: 34181.568, lat: dmsToDecimal(4, 35, 25.73), lng: dmsToDecimal(101, 7, 24.41), img: "CRM 16.jpeg" },
+            { crm: "CRM 8",  n: 103606.849, e: 34252.845, lat: dmsToDecimal(4, 35, 20.73), lng: dmsToDecimal(101, 7, 26.72), img: null },
+            { crm: "CRM 9",  n: 103580.254, e: 34291.529, lat: dmsToDecimal(4, 35, 19.87), lng: dmsToDecimal(101, 7, 27.98), img: null }
         ];
 
-        // Layer Peta Google Satelit
         const googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
@@ -183,7 +180,6 @@
             attribution: '© OpenStreetMap'
         });
 
-        // Tetapkan Pusat Peta
         const map = L.map('map', {
             center: [4.5880, 101.1235],
             zoom: 17,
@@ -192,7 +188,6 @@
 
         L.control.layers({ "Google Satellite": googleSat, "OpenStreetMap": osmMap }).addTo(map);
 
-        // Marker Stesen CRM (Simbol Bulatan Biru)
         const crmPointIcon = L.divIcon({
             className: 'custom-crm-point',
             html: `<div style="background-color:#38bdf8; width:12px; height:12px; border-radius:50%; border:2px solid white; box-shadow:0 0 5px rgba(0,0,0,0.8);"></div>`,
@@ -202,11 +197,9 @@
 
         const tableBody = document.getElementById('station-table-body');
 
-        // Plot Stesen CRM ke atas Peta
         dataCRM.forEach(item => {
             const marker = L.marker([item.lat, item.lng], { icon: crmPointIcon }).addTo(map);
             
-            // Tunjuk NAMA CRM SAHAJA atas peta
             marker.bindTooltip(`${item.crm}`, { 
                 permanent: true, 
                 direction: 'top', 
@@ -214,17 +207,20 @@
                 offset: [0, -6]
             });
 
-            // Popup Koordinat bila diklik
+            let imageHTML = item.img ? 
+                `<br><img src="${item.img}" alt="${item.crm}" style="width:100%; max-height:140px; object-fit:cover; border-radius:4px; margin-top:5px;">` : 
+                `<br><i style="color:#64748b; font-size:11px;">(Gambar belum tersedia)</i>`;
+
             marker.bindPopup(`
-                <div style="color:#0f172a; font-size:12px;">
+                <div style="color:#0f172a; font-size:12px; width:180px;">
                     <b style="color:#0284c7; font-size:13px;">${item.crm}</b><br><hr style="margin:4px 0;">
                     <b>Utaraan (N):</b> ${item.n.toFixed(3)} m<br>
                     <b>Timuran (E):</b> ${item.e.toFixed(3)} m<br>
                     <b>Lat/Lng:</b> ${item.lat.toFixed(6)}, ${item.lng.toFixed(6)}
+                    ${imageHTML}
                 </div>
             `);
 
-            // Masukkan ke Jadual
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td><b style="color:#38bdf8">${item.crm}</b></td>
@@ -240,7 +236,6 @@
             tableBody.appendChild(row);
         });
 
-        // Import Fail KML
         document.getElementById('kml-file').addEventListener('change', function (e) {
             const file = e.target.files[0];
             if (!file) return;
